@@ -6,7 +6,7 @@
   <meta name="description" content="Blankon is a theme fullpack admin template powered by Twitter bootstrap 3 front-end framework. Included are multiple example pages, elements styles, and javascript widgets to get your project started.">
   <meta name="keywords" content="admin, admin template, bootstrap3, clean, fontawesome4, good documentation, lightweight admin, responsive dashboard, webapp">
   <meta name="author" content="Djava UI">
-  <title>Qhomepro</title>
+  <title>Admin Ilkan Baris</title>
   <link rel="shortcut icon" href="<?= base_url('favicon.png')?>">
   <?php echo $this->load->view('admin/get_css'); ?>
   <link href="<?php echo base_url() ?>assets/global/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet" >
@@ -42,7 +42,7 @@
         </div>
         <div class="navbar-header" style="background: red;">
           <a class="navbar-brand" href="<?php echo site_url() ?>" style="padding: 5px 10px;">
-            <img class="logo" src="<?php echo base_url() ?>assets/img/logo.png" alt="brand logo"/>
+            <!-- <img class="logo" src="<?php echo base_url() ?>assets/img/logo.png" alt="brand logo"/> -->
           </a>
         </div>
         <div class="navbar-minimize-mobile right">
@@ -85,7 +85,7 @@
                         <li class="dropdown navbar-profile">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="meta">
-                              <span class="has-notif avatar"><img class="logo img-circle" src="" width="35px" height="35px" alt="user foto"/></span>
+                              <span class="has-notif avatar"><img class="logo img-circle" src="<?php echo get_foto($this->session->userdata('user_id')); ?>" width="35px" height="35px" alt="user foto"/></span>
                               <span class="text hidden-xs hidden-sm text-muted">Admin</span>
                               <span class="caret"></span>
                             </span>
@@ -93,9 +93,9 @@
                           <!-- Start dropdown menu -->
                           <ul class="dropdown-menu animated flipInX">
                             <li class="dropdown-header">Account</li>
-                            <li><a href="<?php echo base_url() ?>user/profile"><i class="fa fa-user"></i>View profile</a></li>
+                            <li><a href="<?php echo base_url() ?>admin/user/profile"><i class="fa fa-user"></i>View profile</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo site_url() ?>login/logout_post"><i class="fa fa-sign-out"></i>Logout</a></li>
+                            <li><a href="<?php echo site_url() ?>admin/login/logout_post"><i class="fa fa-sign-out"></i>Logout</a></li>
                           </ul>
                         </li>
                       </ul>
@@ -106,8 +106,8 @@
                   <!-- Start left navigation - profile shortcut -->
                   <div class="sidebar-content">
                     <div class="media">
-                      <a class="pull-left has-notif avatar" href="<?php echo base_url() ?>user/profile">
-                        <img src="" alt="admin">
+                      <a class="pull-left has-notif avatar" href="<?php echo base_url() ?>admin/user/profile">
+                        <img src="<?php echo get_foto($this->session->userdata('user_id')); ?>" alt="admin">
                         <i class="online"></i>
                       </a>
                       <div class="media-body">
@@ -134,15 +134,27 @@
                         <li class="submenu">
                           <a href="<?php echo site_url() ?>admin/user"> Users</a>
                         </li>
+                        <li class="submenu">
+                          <a href="<?php echo site_url() ?>admin/kategori"> Kategori</a>
+                        </li>
+                        <li class="submenu">
+                          <a href="<?php echo site_url() ?>admin/subkategori"> Sub Kategori</a>
+                        </li>
                       </ul>
+                    </li>
+                    <li class="submenu">
+                      <a href="<?php echo site_url() ?>admin/iklan">
+                        <span class="icon"><i class="fa fa-file-o"></i></span>
+                        <span class="text"> Iklan</span>
+                      </a>
                     </li>
 
                 </ul>
                 <div class="sidebar-footer hidden-xs hidden-sm hidden-md">
                   <a id="setting" class="pull-left" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Setting"><i class="fa fa-cog"></i></a>
                   <a id="fullscreen" class="pull-left" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Fullscreen"><i class="fa fa-desktop"></i></a>
-                  <a id="lock-screen" data-url="<?php echo site_url() ?>login/logout_post" class="pull-left" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Lock Screen"><i class="fa fa-lock"></i></a>
-                  <a id="logout" data-url="<?php echo site_url() ?>login/logout_post" class="pull-left" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Logout"><i class="fa fa-power-off"></i></a>
+                  <a id="lock-screen" data-url="<?php echo site_url() ?>admin/login/logout_post" class="pull-left" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Lock Screen"><i class="fa fa-lock"></i></a>
+                  <a id="logout" data-url="<?php echo site_url() ?>admin/login/logout_post" class="pull-left" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Logout"><i class="fa fa-power-off"></i></a>
                 </div>
               </aside>
               <section id="page-content">

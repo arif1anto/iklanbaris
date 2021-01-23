@@ -29,8 +29,8 @@ class Login extends CI_Controller {
 			$data		= $this->login_m->get_user_data($username,$password);
 			$session_data	= array 
 			(
-				'username'		=> $data->UsrKd,
-				'user_id'		=> $data->UsrANo,
+				'username'		=> $data->admin_name,
+				'user_id'		=> $data->admin_username,
 				'logged_in'		=> 'TRUE',
 				'date'			=> date('Y-m-d H:i:s'),
 			);

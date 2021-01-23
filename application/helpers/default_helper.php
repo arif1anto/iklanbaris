@@ -364,13 +364,13 @@ function jam($jam,$digit = 2)
  {
  	$ci =& get_instance();
  	$ci->load->database();
- 	$dt = $ci->db->select('foto')
- 	->get_where('msuserid',array('UsrANo' => $UsrANo))
+ 	$dt = $ci->db->select('admin_foto')
+ 	->get_where('msuser_admin',array('admin_username' => $UsrANo))
  	->row();
- 	if (isset($dt->foto) && substr($dt->foto,0,10)=='data:image') {
- 		return $dt->foto;
+ 	if (isset($dt->admin_foto) && substr($dt->admin_foto,0,10)=='data:image') {
+ 		return $dt->admin_foto;
  	} else {
- 		return site_url('assets/images/no_photo.jpg');
+ 		return site_url('assets/img/no_photo.jpg');
  	}
  }
 

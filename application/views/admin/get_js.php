@@ -303,12 +303,12 @@
 
 	}
 
-	function init_select2(page) {
+	function init_select2(page,admin = "") {
 		$('.'+page.toLowerCase()+'s2').select2({
 			allowClear: true,
 			placeholder: 'Pilih '+page+'',
 			ajax: {
-				url: '<?php echo site_url("autocomplete") ?>/cari_'+page,
+				url: '<?php echo site_url() ?>'+admin+'autocomplete/cari_'+page,
 				dataType: 'json',
 				delay: 250,
 				processResults: function (data) {

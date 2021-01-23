@@ -6,14 +6,14 @@
   <meta name="description" content="Blankon is a theme fullpack admin template powered by Twitter bootstrap 3 front-end framework. Included are multiple example pages, elements styles, and javascript widgets to get your project started.">
   <meta name="keywords" content="admin, admin template, bootstrap3, clean, fontawesome4, good documentation, lightweight admin, responsive dashboard, webapp">
   <meta name="author" content="Djava UI">
-  <title>HRIS BJHome Jogja | SIGN IN</title>
-  <?php echo $this->load->view('get_css'); ?>
+  <title>Admin IB | SIGN IN</title>
+  <?php echo $this->load->view('admin/get_css'); ?>
 </head>
 
 <body class="page-sound page-backstretch body-bg">
   <div class="bg-cover">
   <div id="sign-wrapper">
-    <?php echo form_open("login/login_aksi"); ?>
+    <?php echo form_open("admin/login/login_aksi"); ?>
     <div class="sign-header">
       <div class="form-group">
         <div class="sign-text">
@@ -53,7 +53,7 @@
       </div>
     </div>
     <?php echo form_close() ; ?>
-    <p class="text-muted text-center sign-link">HRIS BJHome Jogja &copy; 2018</p>
+    <p class="text-muted text-center sign-link">IklanBaris &copy; <?= date('Y') ?></p>
   </div>
   </div>
 

@@ -9,30 +9,18 @@ class Login_m extends CI_Model
     {
         // Call the Model constructor
         parent::__construct();
-        $this->table = 'msuserid';
+        $this->table = 'msuser_admin';
     }
-	function datamenu()
-	{
-        $this->db->select('*');
-        $this->db->from('menu'); 
-        return $this->db->get()->result();
-	}
-
-		function menu()
-	{
-         $query=$this->db->query("select * from menu");
-        return $query->row();
-	}
 
 	function login_aksi($arg, $arg2)
 	{
-		$query	= $this->db->get_where($this->table, array ('UsrKd' => $arg, 'UsrPswd' => $arg2))->num_rows();
+		$query	= $this->db->get_where($this->table, array ('admin_username' => $arg, 'admin_pass' => $arg2))->num_rows();
 		return $query;
 	}
 
 	function get_user_data($arg, $arg2)
 	{
-		$query	= $this->db->get_where($this->table, array('UsrKd' => $arg, 'UsrPswd' => $arg2))->row();
+		$query	= $this->db->get_where($this->table, array('admin_username' => $arg, 'admin_pass' => $arg2))->row();
 		return $query;
 	}
 
