@@ -5,13 +5,80 @@ class Home extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+        $this->load->model(array('iklan_model','Log_model'));
 		//cek_session();
 	}
-	public function index()
-	{
-		$this->load->view('fe_home');
-		$data = null;
-	}
+
+	public function index() {
+        $this->load->library('Ajax_pagination');
+        $config['target']      = '#tbl_data';
+        $config['base_url']    = base_url().'home/search';
+        $this->ajax_pagination->initialize($config);
+        $data = array(
+            'act'       => $act,
+            'id_sct'    => $id, 
+            'iklan_data' => NULL,
+            'q'         => NULL,
+            'pagination'=> $this->ajax_pagination->create_script(),
+            'total_rows'=> NULL,
+            'start'     => NULL,
+        );
+
+        $this->load->view('fe_home', $data);
+    }
+
+    public function search($pg=0)
+    {
+        $this->load->library('Ajax_pagination');
+        $this->perPage = 10;
+        $page = $this->input->post('page');
+
+        if(!$page){
+            $start = $pg;
+        }else{
+            $start = $page;
+        }
+        $q = $this->input->post('keyword');
+        $field = $this->input->post('name');
+        $value = $this->input->post('value');
+        $param = array($field[0] => $value[0]);
+        for ($i=0; $i < count($field); $i++) { 
+            $param[$field[$i]] = $value[$i];
+        }
+        
+        $totalRec = 20;
+        if ($this->input->post('limit')=='true') {
+            $start = 0;
+            if ($totalRec > $this->perPage) {
+                $totalRec = $this->perPage;
+            }
+        } else {
+            $totalRec = $this->iklan_model->total_rows($q, $param);
+        }
+        $order = 'ASC';
+        if ($this->input->post('desc')=='true') {
+            $order = 'DESC';
+        }
+        $dat = $this->iklan_model->get_limit_data($this->perPage, $start, $q, $param, $order);
+        
+        $config['target']      = '#tbl_data';
+        $config['keyword']     = '#keyword';
+        $config['num_links']   = 3;
+        $config['base_url']    = base_url().'home/search';
+        $config['total_rows']  = $totalRec;
+        $config['per_page']    = $this->perPage;
+        $this->ajax_pagination->initialize($config);
+        
+        $data = array(
+            'iklan_data' => $dat,
+            'q' => $q,
+            'pagination' => $this->ajax_pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+        );
+
+        $this->load->view('fe_home_ajax', $data, FALSE);
+    }
 
 	function register()
 	{
@@ -92,6 +159,7 @@ class Home extends CI_Controller {
 		$this->session->unset_userdata("lastname");
 		redirect('home','refresh');
 	}
+
 
 }
 

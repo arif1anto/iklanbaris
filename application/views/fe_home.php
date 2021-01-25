@@ -81,10 +81,10 @@
       </div>
     </div>
   </nav>
-  <section class="banner-sec">
+  <section class="banner-sec" id="tbl_data">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <div class="iklan-container">
             <div class="iklan-title with-border"><h5>JUDUL</h5></div>
             <div class="iklan-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -133,7 +133,7 @@
               <p class="pull-right">#878471</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
