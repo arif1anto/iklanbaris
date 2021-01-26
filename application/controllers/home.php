@@ -6,7 +6,7 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
         $this->load->model(array('iklan_model','Log_model'));
-		//cek_session();
+		cek_session();
 	}
 
 	public function index() {
@@ -15,8 +15,6 @@ class Home extends CI_Controller {
         $config['base_url']    = base_url().'home/search';
         $this->ajax_pagination->initialize($config);
         $data = array(
-            'act'       => $act,
-            'id_sct'    => $id, 
             'iklan_data' => NULL,
             'q'         => NULL,
             'pagination'=> $this->ajax_pagination->create_script(),
@@ -30,7 +28,7 @@ class Home extends CI_Controller {
     public function search($pg=0)
     {
         $this->load->library('Ajax_pagination');
-        $this->perPage = 10;
+        $this->perPage = 20;
         $page = $this->input->post('page');
 
         if(!$page){
@@ -41,20 +39,13 @@ class Home extends CI_Controller {
         $q = $this->input->post('keyword');
         $field = $this->input->post('name');
         $value = $this->input->post('value');
-        $param = array($field[0] => $value[0]);
+        // var_dump($_POST); die;
+        $param = array();
         for ($i=0; $i < count($field); $i++) { 
             $param[$field[$i]] = $value[$i];
         }
         
-        $totalRec = 20;
-        if ($this->input->post('limit')=='true') {
-            $start = 0;
-            if ($totalRec > $this->perPage) {
-                $totalRec = $this->perPage;
-            }
-        } else {
-            $totalRec = $this->iklan_model->total_rows($q, $param);
-        }
+        $totalRec = $this->iklan_model->total_rows($q, $param);
         $order = 'ASC';
         if ($this->input->post('desc')=='true') {
             $order = 'DESC';

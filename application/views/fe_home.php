@@ -74,7 +74,7 @@
         </ul>
         <form class="pull-xs-right">
           <div class="search">
-            <input type="text" class="form-control" maxlength="64" placeholder="Search" />
+            <input type="text" class="form-control filter" id="keyword" name="keyword" maxlength="64" placeholder="Search" />
             <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
           </div>
         </form>
@@ -260,6 +260,8 @@
 <!-- Bootstrap core JavaScript
   ================================================== --> 
   <!-- Placed at the end of the document so the pages load faster --> 
+
+  <?php echo $this->ajax_pagination->create_script() ?>
   <script src="js/jquery.min.js"></script> 
   <script src="js/bootstrap.min.js"></script> 
   <script src="js/core.js"></script> 

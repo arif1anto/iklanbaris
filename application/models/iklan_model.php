@@ -14,28 +14,30 @@ class iklan_model extends CI_Model
 
     function get_by_id($id)
     {
-        $this->db->where('ads_id', $id);
-        return $this->db->get('triklan')->row();
+        $this->db->where('ads_id', $id)
+        ->join('msads_style b','a.ads_style=b.style_id','left');
+        return $this->db->get('triklan a')->row();
     }
     
     function total_rows($key = NULL, $param=NULL) {
         $q = $this->db->select('*')
-                  ->from('triklan');
-	if (isset($param['kolom']) && $param['kolom']!="") {
+        ->from('triklan a');
+        if (isset($param['kolom']) && $param['kolom']!="") {
             $q = $q->where("(".$param['kolom']." LIKE '%".$key."%')",NULL,FALSE);
-          }
-	return $this->db->count_all_results();
+        }
+        return $this->db->count_all_results();
     }
 
     function get_limit_data($limit, $start = 0, $key = NULL, $param=NULL, $order = "DESC") {
         $q = $this->db->select('*')
-                  ->from('triklan')
-                  ->limit($limit, $start)
-                  ->order_by($param['kolom'] ,$order);
-	if (isset($param['kolom']) && $param['kolom']!="") {
+        ->from('triklan a')
+        ->join('msads_style b','a.ads_style=b.style_id','left')
+        ->limit($limit, $start)
+        ->order_by($param['kolom'] ,$order);
+        if (isset($param['kolom']) && $param['kolom']!="") {
             $q = $q->where("(".$param['kolom']." LIKE '%".$key."%')",NULL,FALSE);
-          }
-	return $this->db->get()->result();
+        }
+        return $this->db->get()->result();
     }
 
 

@@ -13,6 +13,10 @@ if ((".loader").length) {
   });
 }
 
+$(document).ready(function() {
+	getData();
+})
+
 $('#btnreg').click(function() {
 	$('#mreg_loading').show();
     var formdata = new FormData($('#mregister form')[0]);

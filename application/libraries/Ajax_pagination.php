@@ -90,13 +90,7 @@ class Ajax_pagination{
         var aj;
         function '.$this->link_func.'(page){ 
             key = $("'.$this->keyword.'").val();
-            var a = [];
-            a[0] = $("select[name=kolom]");
-            a[1] = $("select[name=srdivisi]");
-            a[2] = $("select[name=srjabatan]");
-            a[3] = $("select[name=select1]");
-            a[4] = $("input[name=srstaff]");
-
+            var a = $(".filter");
             var field = [];
             var val = [];
             j = 0;
