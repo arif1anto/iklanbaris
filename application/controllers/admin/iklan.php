@@ -10,6 +10,7 @@ class Iklan extends CI_Controller
         parent::__construct();
         $this->load->model(array('iklan_model','Log_model'));
         $this->load->library('form_validation');
+        cek_session_admin();
     }
 
     public function index($act ='', $id ='') {

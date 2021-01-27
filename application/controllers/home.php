@@ -6,7 +6,6 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
         $this->load->model(array('iklan_model','Log_model'));
-		cek_session();
 	}
 
 	public function index() {

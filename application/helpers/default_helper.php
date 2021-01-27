@@ -309,7 +309,7 @@ function jam($jam,$digit = 2)
  	return $str;
  }
 
- function cek_session(){
+ function cek_session_admin(){
  	$ci = & get_instance();
  	$ci->output->set_header("cache-Control: no-store, no-cache, must-revalidate");
  	$ci->output->set_header("cache-Control: post-check=0, pre-check=0", false);
@@ -319,20 +319,23 @@ function jam($jam,$digit = 2)
  	$user = $ci->session->userdata("user_id");
  	$loged_in = $ci->session->userdata("logged_in");
 
-	//insert to access log untuk test
- 	if ($ci->input->ip_address()!="::1" && $ci->session->userdata('username')!='1') {
- 		$ci->load->database();
- 		$ci->db->query("INSERT INTO qapp_sr.access_log VALUES 
- 			(now(),
- 			'".$ci->input->ip_address()."',
- 			'".base_url(uri_string())."',
- 			'".$user."',
- 			'".$ci->session->userdata('username')."',
- 			'".$ci->session->userdata('nama')."')");
+ 	if ($loged_in!='TRUE' || $user=='') {
+ 		redirect("admin/login/logout_post"); 
  	}
+ }
+
+ function cek_session_user(){
+ 	$ci = & get_instance();
+ 	$ci->output->set_header("cache-Control: no-store, no-cache, must-revalidate");
+ 	$ci->output->set_header("cache-Control: post-check=0, pre-check=0", false);
+ 	$ci->output->set_header("Pragma: no-cache");
+ 	$ci->output->set_header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+ 	
+ 	$user = $ci->session->userdata("user_email");
+ 	$loged_in = $ci->session->userdata("user_loged_in");
 
  	if ($loged_in!='TRUE' || $user=='') {
- 		redirect("login/logout_post"); 
+ 		redirect("home"); 
  	}
  }
 

@@ -45,45 +45,70 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-4 text-center">
-            <h1>Iklan Baris<small>Get the latest Ads</small></h1>
+            <h1>Mata Iklan<small>Get the latest Ads</small></h1>
           </div>
           <div class="col-md-6 col-lg-5 offset-lg-3 admin-bar hidden-sm-down">
             <nav class="nav nav-inline"> 
               <?php if ($this->session->userdata('user_loged_in')=="TRUE"): ?>
-              <a href="#" class="nav-link"><span class="ping"></span><i class="fa fa-envelope-o"></i></a>
-              <a href="#" class="nav-link">Hai, <?= $this->session->userdata('firstname') ?></a>  
-              <a href="<?= site_url() ?>home/logout" class="nav-link"><i class="fa fa-sign-out"></i></a> 
-              <?php else : ?> 
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mregister">Register</a> 
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mlogin">Login</a> 
-              <?php endif ?>
-            </nav>
+                <button type="button" id="btniklan" class="btn btn-md btn-primary" style="margin-right: 20px">Pasang Iklan</button>
+                <a href="#" class="nav-link">Hai, <span id="name_login"><?= $this->session->userdata('firstname') ?></span></a>  
+                <a href="<?= site_url() ?>home/logout" class="nav-link"><i class="fa fa-sign-out"></i></a> 
+                <?php else : ?> 
+                  <button type="button" id="btniklan" class="btn btn-md btn-primary" style="margin-right: 20px">Pasang Iklan</button>
+                  <span id="name_login"></span>
+                  <a href="#" class="nav-link" data-toggle="modal" data-target="#mregister">Register</a> 
+                  <a href="#" class="nav-link" data-toggle="modal" data-target="#mlogin">Login</a> 
+                <?php endif ?>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  <nav class="navbar top-nav">
-    <div class="container">
-      <button class="navbar-toggler hidden-lg-up " type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation"> &#9776; </button>
-      <div class="collapse navbar-toggleable-md" id="exCollapsingNavbar2"> <a class="navbar-brand" href="#">Responsive navbar</a>
-        <ul class="nav navbar-nav ">
-          <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">Category</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">Location</a> </li>
-        </ul>
-        <form class="pull-xs-right">
-          <div class="search">
-            <input type="text" class="form-control filter" id="keyword" name="keyword" maxlength="64" placeholder="Search" />
-            <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
-          </div>
-        </form>
+    </header>
+    <nav class="navbar top-nav">
+      <div class="container">
+        <button class="navbar-toggler hidden-lg-up " type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation"> &#9776; </button>
+        <div class="collapse navbar-toggleable-md" id="exCollapsingNavbar2"> <a class="navbar-brand" href="#">Responsive navbar</a>
+          <form class="form-inline pull-xs-left">
+            <div class="filter-container">
+              <div class="form-group">
+                <select class="form-control filter" name="kategori" id="kategori">
+                  <option>Pilih Kategori</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select class="form-control filter" name="lokasi" id="lokasi">
+                  <option>Pilih Lokasi</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <form class="pull-xs-right form-inline">
+            <div class="filter-container">
+            <input type="hidden" class="filter" name="kolom" id="kolom" value="a.ads_id">
+            <div class="form-group">
+              <label>Tampilkan :</label>
+              <select class="form-control filter" name="limit" id="limit">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="0">Show All</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control filter" id="keyword" name="keyword" maxlength="64" placeholder="Search" />
+                <span class="input-group-btn" style="float: left">
+                  <button type="button" onclick="getData()" class="btn btn-danger"><i class="fa fa-search"></i></button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </nav>
-  <section class="banner-sec" id="tbl_data">
-    <div class="container">
-      <div class="row">
+    </nav>
+    <section class="banner-sec" id="tbl_data">
+      <div class="container">
         <!-- <div class="col-md-3">
           <div class="iklan-container">
             <div class="iklan-title with-border"><h5>JUDUL</h5></div>
@@ -138,53 +163,7 @@
     </div>
   </section>
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-md-12">
-          <h6 class="heading-footer">ABOUT US</h6>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
-          <p><i class="fa fa-phone"></i> <span>Call Us :</span> +91 9999 878 398</p>
-          <p><i class="fa fa-envelope"></i> <span>Send Email :</span> info@webenlance.com</p>
-        </div>
-        <div class="col-lg-2 col-md-4">
-          <h6 class="heading-footer">QUICK LINKS</h6>
-          <ul class="footer-ul">
-            <li><a href="#"> Career</a></li>
-            <li><a href="#"> Privacy Policy</a></li>
-            <li><a href="#"> Terms & Conditions</a></li>
-            <li><a href="#"> Client Gateway</a></li>
-            <li><a href="#"> Ranking</a></li>
-            <li><a href="#"> Case Studies</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-2 col-md-4 social-icons">
-          <h6 class="heading-footer">FOLLOW</h6>
-          <ul class="footer-ul">
-            <li><a href="#"><i class=" fa fa-facebook"></i> Facebook</a></li>
-            <li><a href="#"><i class=" fa fa-twitter"></i> Twitter</a></li>
-            <li><a href="#"><i class=" fa fa-google-plus"></i> Google+</a></li>
-            <li><a href="#"><i class=" fa fa-linkedin"></i> Linkedin</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-4 col-md-4">
-        </div>
-      </div>
-    </div>
-  </footer>
-  <!--footer start from here-->
-
-  <div class="copyright">
-    <div class="container">
-      <div class="col-lg-6 col-md-4">
-        <p>Project arif1anto</a>
-        </p>
-      </div>
-      <div class="col-lg-6 col-md-8">
-        
-      </div>
-    </div>
-  </div>
+  <?= $this->load->view('fe_footer.php') ?>
 
   <!-- modal -->
   <div class="modal fade" tabindex="-1" role="dialog" id="mregister">
@@ -247,7 +226,7 @@
               <label for="password_login">Password</label>
               <input type="password" required name="password_login" class="form-control" id="password_login">
             </div>
-            </form>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="btnlogin">Login</button>
@@ -261,10 +240,74 @@
   ================================================== --> 
   <!-- Placed at the end of the document so the pages load faster --> 
 
-  <?php echo $this->ajax_pagination->create_script() ?>
   <script src="js/jquery.min.js"></script> 
   <script src="js/bootstrap.min.js"></script> 
   <script src="js/core.js"></script> 
+  <script>
+    
+$(document).ready(function() {
+  getData();
+})
+
+$('#btnreg').click(function() {
+  $('#mreg_loading').show();
+    var formdata = new FormData($('#mregister form')[0]);
+  $.ajax({
+    url: 'home/register',
+    type: 'POST',
+    dataType: 'json',
+    data: formdata,
+    processData: false,
+    contentType: false,
+  })
+  .done(function(data) {
+    $('#mreg_loading').hide();
+    alert(data.msg);
+    if (data.status==200) {
+      $('#mregister').modal('hide');
+    }
+  })
+  .fail(function(e) {
+    $('#mreg_loading').hide();
+    console.log("error");
+  });
+});
+
+$('#btnlogin').click(function() {  
+  // if($("#mlogin form").validate()){      
+      var formdata = new FormData($('#mlogin form')[0]);
+    $.ajax({
+      url: 'home/login',
+      type: 'POST',
+      dataType: 'json',
+      data: formdata,
+      processData: false,
+      contentType: false
+    })
+    .done(function(data) {
+      $('#mreg_loading').hide();
+      alert(data.msg);
+      if (data.status==200) {
+        $('#mregister').modal('hide');
+        location.reload();
+      }
+    })
+    .fail(function(e) {
+      console.log(e);
+    });
+  // }
+});
+
+$('#btniklan').click(function() {
+  let name = $('#name_login').text()
+  if (name.trim()!="") {
+    window.location = "pasang_iklan"
+  } else {
+    $('#mregister').modal('show')
+  }
+});
+  </script>
+  <?php echo $this->ajax_pagination->create_script() ?>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script> -->
   <!-- <script src="js/lightbox-plus-jquery.min.js"></script>  -->
 

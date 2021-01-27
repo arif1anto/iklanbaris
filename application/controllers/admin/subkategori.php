@@ -10,6 +10,7 @@ class Subkategori extends CI_Controller
         parent::__construct();
         $this->load->model(array('Subkategori_model','Log_model'));
         $this->load->library('form_validation');
+        cek_session_admin();
     }
 
     public function index($act ='', $id ='') {

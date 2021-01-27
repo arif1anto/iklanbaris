@@ -6,7 +6,7 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('login_m');
-		//cek_session();
+		cek_session_admin();
 	}
 	public function index()
 	{

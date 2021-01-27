@@ -59,6 +59,8 @@ foreach ($iklan_data as $row)
     </div>
   </div>
 </div>
-<div class="col-md-12 text-center">
+<div class="col-md-10 offset-md-1">
+  <center>
   <?php echo $pagination ?>
+  </center>
 </div>

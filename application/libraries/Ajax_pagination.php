@@ -22,20 +22,20 @@ class Ajax_pagination{
     var $prev_link          = 'Prev';
     var $last_link          = 'Last';
     var $uri_segment        = 3;
-    var $full_tag_open   = '<div class="pagination">';
-    var $full_tag_close  = '</div>';
-    var $first_tag_open     = '<li>';
+    var $full_tag_open   = '<nav aria-label="Page navigation"><ul class="pagination">';
+    var $full_tag_close  = '</ul></nav>';
+    var $first_tag_open     = '<li class="page-item">';
     var $first_tag_close    = '</li>';
-    var $last_tag_open      = '<li>';
+    var $last_tag_open      = '<li class="page-item">';
     var $last_tag_close     = '</li>';
     var $first_url          = ''; // Alternative URL for the First Page.
-    var $cur_tag_open       = '<li class="active"><a>';
+    var $cur_tag_open       = '<li class="page-item active"><a>';
     var $cur_tag_close      = '</a></li>';
-    var $next_tag_open      = '<li>';
+    var $next_tag_open      = '<li class="page-item">';
     var $next_tag_close     = '</li>';
-    var $prev_tag_open      = '<li>';
+    var $prev_tag_open      = '<li class="page-item">';
     var $prev_tag_close     = '</li>';
-    var $num_tag_open       = '<li>';
+    var $num_tag_open       = '<li class="page-item">';
     var $num_tag_close      = '</li>';
     var $target          = '';
     var $anchor_class    = '';
@@ -119,10 +119,10 @@ class Ajax_pagination{
                 url: "'.$this->base_url.'/"+page,
                 data: { page: page, keyword: key, name: field, value: val, desc: desc, limit:limit},
                 beforeSend: function(){
-                   $("#loading").show();
+                   $(".loader").show();
                    },
                    success: function(data){
-                    $("#loading").hide();
+                    $(".loader").fadeOut("slow");
                     $("'.$this->target.'").html(data);
 
                     $(".tr-click").dblclick(function() {
@@ -134,7 +134,7 @@ class Ajax_pagination{
                             if (exception!="abort") {
                                 console.log(jqXHR.responseText);
                             }
-                            $("#loading").hide();
+                            $(".loader").fadeOut("slow");
                         }
                         });
                     }
@@ -168,7 +168,7 @@ class Ajax_pagination{
         // Is there only one page? Hm... nothing more to do here then.
        if ($num_pages == 1){
         //$info = 'Showing : ' . $this->total_rows;
-        $info = '<div class="pagination"><li class="active"><a>Total Record: '.$this->total_rows.'</a></li></div>';
+        $info = '<nav aria-label="Page navigation"><ul class="pagination"><li class="page-item active"><a class="page-link" href="#">Total Record: '.$this->total_rows.'</a></li></ul></nav>';
         return $info;
     }
 

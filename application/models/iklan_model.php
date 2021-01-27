@@ -32,8 +32,13 @@ class iklan_model extends CI_Model
         $q = $this->db->select('*')
         ->from('triklan a')
         ->join('msads_style b','a.ads_style=b.style_id','left')
-        ->limit($limit, $start)
-        ->order_by($param['kolom'] ,$order);
+        ->limit($limit, $start);
+        if ($param['kolom']!="") {
+            $q = $q->order_by($param['kolom'] ,$order);
+        }
+        if (isset($param['kolom']) && $param['kolom']!="") {
+            $q = $q->where("(".$param['kolom']." LIKE '%".$key."%')",NULL,FALSE);
+        }
         if (isset($param['kolom']) && $param['kolom']!="") {
             $q = $q->where("(".$param['kolom']." LIKE '%".$key."%')",NULL,FALSE);
         }
