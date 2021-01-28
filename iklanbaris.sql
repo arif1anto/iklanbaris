@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 26/01/2021 16:29:32
+ Date: 28/01/2021 16:56:41
 */
 
 SET NAMES utf8mb4;
@@ -26,12 +26,17 @@ CREATE TABLE `msads_style`  (
   `style_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `container_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `title_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `style_price` double NULL DEFAULT NULL,
   PRIMARY KEY (`style_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of msads_style
 -- ----------------------------
+INSERT INTO `msads_style` VALUES (1, 'Default', NULL, 'with-border with-bg-black', 3000);
+INSERT INTO `msads_style` VALUES (2, 'Special', 'border-red', 'with-border with-bg-red', 5000);
+INSERT INTO `msads_style` VALUES (3, 'Elegant', 'font-color-blue', 'with-border', 4000);
+INSERT INTO `msads_style` VALUES (4, 'Clasic', NULL, 'with-border', 2000);
 
 -- ----------------------------
 -- Table structure for mskategori
@@ -62,30 +67,22 @@ CREATE TABLE `mssetprog`  (
 -- ----------------------------
 -- Records of mssetprog
 -- ----------------------------
-INSERT INTO `mssetprog` VALUES ('byrdefault', '0002', '');
-INSERT INTO `mssetprog` VALUES ('close', '202011', 'POSTING|Closing Periode');
-INSERT INTO `mssetprog` VALUES ('date', 'disabled', 'Disable tanggal');
-INSERT INTO `mssetprog` VALUES ('fopo', '<table width=\"100%\" style=\"border-collapse: collapse;\">\n    <tr>\n        <td align=\"center\" width=\"20%\">Dibuat Oleh</td>\n        <td align=\"center\" width=\"20%\">Menyetujui</td>\n        <td align=\"center\" width=\"20%\">Menyetujui</td>\n        <td align=\"center\" width=\"20%\"> Mengetahui</td>\n    </tr>\n    <tr>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( ___________________ )<br>\n            Adm\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( ___________________ )<br>\n            Head MD\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( ___________________ )<br>\n            Supplier\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( ___________________ )<br>\n            Direktur\n        </td>\n    </tr>\n</table>', 'PRINT FOOTER|Cetakan PO');
-INSERT INTO `mssetprog` VALUES ('foposo', '<table width=\"100%\" style=\"border-collapse: collapse;\">\n    <tbody><tr>\n        <td align=\"center\" width=\"20%\">Dibuat Oleh</td>\n        <td align=\"center\" width=\"20%\">Menyetujui</td>\n        <td align=\"center\" width=\"20%\">Menyetujui</td>\n        <td align=\"center\" width=\"20%\">Menyetujui</td>\n        <td align=\"center\" width=\"20%\">Mengetahui</td>\n    </tr>\n    <tr>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( __________________ )<br>\n            Adm\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( __________________ )<br>\n            Head MD\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( __________________ )<br>\n            Supplier\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( __________________ )<br>\n            Supplier\n        </td>\n        <td align=\"center\" width=\"20%\">\n            <br><br><br>\n            ( __________________ )<br>\n            Direktur\n        </td>\n    </tr>\n</tbody></table>', 'PRINT FOOTER|Cetakan PO by SO');
-INSERT INTO `mssetprog` VALUES ('gddefault', 'yk06', '');
-INSERT INTO `mssetprog` VALUES ('hris_pass_api', '123456789', 'API>User API untuk HRIS');
-INSERT INTO `mssetprog` VALUES ('hris_user_api', 'hris', 'API>User API untuk HRIS');
-INSERT INTO `mssetprog` VALUES ('kl0', 'Division', 'Kategori>Kategori Level 1');
-INSERT INTO `mssetprog` VALUES ('kl1', 'Department', 'Kategori>Kategori Level 2');
-INSERT INTO `mssetprog` VALUES ('kl2', 'Category', 'Kategori>Kategori Level 3');
-INSERT INTO `mssetprog` VALUES ('kl3', 'Sub Category', 'Kategori>Kategori Level 4');
-INSERT INTO `mssetprog` VALUES ('kota', 'YOGYAKARTA', 'INFORMASI|Kota');
-INSERT INTO `mssetprog` VALUES ('lock', '202009', 'POSTING|Kunci Periode');
-INSERT INTO `mssetprog` VALUES ('nmpt', 'PT BANGUNAN JAYA MANDIRI', 'INFORMASI|Nama Instansi / PT');
+INSERT INTO `mssetprog` VALUES ('about', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\n        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo', 'About US');
+INSERT INTO `mssetprog` VALUES ('email', 'mataiklan@gmail.com', NULL);
+INSERT INTO `mssetprog` VALUES ('fb', '', NULL);
+INSERT INTO `mssetprog` VALUES ('gplus', '', NULL);
+INSERT INTO `mssetprog` VALUES ('hsat', '150', 'Harga satuan per huruf');
+INSERT INTO `mssetprog` VALUES ('kota', 'Yogyakarta', 'INFORMASI|Kota');
+INSERT INTO `mssetprog` VALUES ('linkedin', '', NULL);
+INSERT INTO `mssetprog` VALUES ('logo', 'http://localhost:8000/iklanbaris/img/logo.jpeg', NULL);
+INSERT INTO `mssetprog` VALUES ('nmins', 'Mata Iklan', 'INFORMASI|Nama Instansi / PT');
 INSERT INTO `mssetprog` VALUES ('notif_expired', '10', 'Berapa Lama notifikasi muncul kembali (Menit)');
 INSERT INTO `mssetprog` VALUES ('ntf_email', 'Y', '');
 INSERT INTO `mssetprog` VALUES ('ntf_sys', 'Y', '');
-INSERT INTO `mssetprog` VALUES ('pos_db', '202009', 'POSTING|Tampilkan di dashboard');
 INSERT INTO `mssetprog` VALUES ('pre', 'AD', 'INFORMASI|Prefix Untuk Kode Otomatis');
-INSERT INTO `mssetprog` VALUES ('qversi', '3.09.513', 'Versi Qhomepro');
-INSERT INTO `mssetprog` VALUES ('tema', 'merah', '');
-INSERT INTO `mssetprog` VALUES ('upd', 'Y', 'SQ|update');
-INSERT INTO `mssetprog` VALUES ('url_upd', 'http://192.168.50.2/qhome.apk', 'SQ|url_update');
+INSERT INTO `mssetprog` VALUES ('tagline', 'Get the latest Ads', 'Tag Line');
+INSERT INTO `mssetprog` VALUES ('telp', '08123456789', NULL);
+INSERT INTO `mssetprog` VALUES ('twitter', '', NULL);
 INSERT INTO `mssetprog` VALUES ('versi', 'v-1.1.0', 'SQ|versi');
 
 -- ----------------------------
@@ -123,7 +120,7 @@ CREATE TABLE `msuser`  (
 -- ----------------------------
 -- Records of msuser
 -- ----------------------------
-INSERT INTO `msuser` VALUES ('arifianto.me@gmail.com', 'Arifianto', '-', '123', '08545412544', '2021-01-15 14:22:56', 'Aktif', 1);
+INSERT INTO `msuser` VALUES ('arifianto.me@gmail.com', 'Arifianto', '-', '123', '08545412544', '2021-01-28 11:39:16', 'Aktif', 1);
 INSERT INTO `msuser` VALUES ('arifianto1.me@gmail.com', 'Arifianto', '-', '12345678', '82136461938', NULL, 'Aktif', 0);
 
 -- ----------------------------
@@ -180,6 +177,8 @@ CREATE TABLE `triklan`  (
   `ads_situs` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Situs',
   `ads_status` enum('Aktif','Pending','Suspend') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Aktif' COMMENT 'Status',
   `ads_draft` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N' COMMENT 'Draft',
+  `ads_tgl_tayang1` date NULL DEFAULT NULL,
+  `ads_tgl_tayang2` date NULL DEFAULT NULL,
   `ads_style` int NULL DEFAULT NULL,
   PRIMARY KEY (`ads_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -187,7 +186,7 @@ CREATE TABLE `triklan`  (
 -- ----------------------------
 -- Records of triklan
 -- ----------------------------
-INSERT INTO `triklan` VALUES ('AD001', 'TEST', 'ajslka lkad akdk k dkakd ayudoaudkl duoaud audoka udoaudoua odu aod', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', '', 'N', NULL);
+INSERT INTO `triklan` VALUES ('AD001', 'TEST', 'ajslka lkad akdk k dkakd ayudoaudkl duoaud audoka udoaudoua odu aod', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', '', 'N', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for trlog
