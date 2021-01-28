@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <?php $this->load->view('fe_header.php'); ?>
   <title>IB</title>
 
   <!--Bootstrap core CSS-->
@@ -31,21 +27,13 @@
     </div>
   </div>
   <header>
-    <div class="small-top">
-      <div class="container">
-        <div class="col-lg-4 date-sec hidden-sm-down">
-          <div id="Date"></div>
-        </div>
-        <div class="col-lg-3 offset-lg-5">
-          <div class="social-icon"> <a target="_blank" href="#" class=" fa fa-facebook"></a> <a target="_blank" href="#" class=" fa fa-twitter"></a> <a target="_blank" href="#" class=" fa fa-google-plus"></a> <a target="_blank" href="#" class=" fa fa-linkedin"></a> <a target="_blank" href="#" class=" fa fa-youtube"></a> <a target="_blank" href="#" class=" fa fa-vimeo-square"></a> </div>
-        </div>
-      </div>
-    </div>
+    <?= $this->load->view('fe_topbar.php'); ?>
     <div class="top-head left">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-lg-4 text-center">
-            <h1>Mata Iklan<small>Get the latest Ads</small></h1>
+          <div class="col-md-6 col-lg-4 ">
+            <img src="<?= getconfig('logo') ?>" class="logo">
+            <h1><small><?= getconfig('tagline') ?></small></h1>
           </div>
           <div class="col-md-6 col-lg-5 offset-lg-3 admin-bar hidden-sm-down">
             <nav class="nav nav-inline"> 

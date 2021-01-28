@@ -14,12 +14,15 @@ class Pasang_iklan extends CI_Controller {
         $config['target']      = '#tbl_data';
         $config['base_url']    = base_url().'pasang_iklan/search';
         $this->ajax_pagination->initialize($config);
+
+        $tema_data = $this->db->query('select * from msads_style')->result();
         $data = array(
             'iklan_data' => NULL,
             'q'         => NULL,
             'pagination'=> $this->ajax_pagination->create_script(),
             'total_rows'=> NULL,
             'start'     => NULL,
+            'tema_data' => $tema_data
         );
 
         $this->load->view('fe_pasangiklan', $data);

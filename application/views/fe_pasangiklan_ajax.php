@@ -13,7 +13,7 @@
 				<th>Draft</th>
 			</tr>
 		</thead>
-		<tbody><?php
+		<tbody><?php $start=0;
 		foreach ($iklan_data as $row)
 		{
 			?>
@@ -25,8 +25,8 @@
 				<td><?php echo $row->ads_user_email ?></td>
 				<td><?php echo $row->ads_wa ?></td>
 				<td><?php echo $row->ads_situs ?></td>
-				<td><?php echo $row->ads_status ?></td>
-				<td><?php echo $row->ads_draft ?></td>
+				<td class="text-success"><?php echo "Aktif" ?></td>
+				<td><?php echo style_yn($row->ads_draft) ?></td>
 			</tr>
 			<?php
 		}

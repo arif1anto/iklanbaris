@@ -210,3 +210,11 @@ footer .post p span { display:block; color:#8f8f8f; font-size: 12px;}
 .filter-container{
 	padding: 4px 0px;
 }
+
+.top-head img.logo{
+	width: 200px;
+    margin-bottom: -15px;
+    margin-top: 6px;
+    border: 8px solid #fff;
+    border-radius: 8px;
+}
