@@ -27,7 +27,6 @@ class Home extends CI_Controller {
     public function search($pg=0)
     {
         $this->load->library('Ajax_pagination');
-        $this->perPage = 20;
         $page = $this->input->post('page');
 
         if(!$page){
@@ -38,11 +37,12 @@ class Home extends CI_Controller {
         $q = $this->input->post('keyword');
         $field = $this->input->post('name');
         $value = $this->input->post('value');
-        // var_dump($_POST); die;
         $param = array();
         for ($i=0; $i < count($field); $i++) { 
             $param[$field[$i]] = $value[$i];
         }
+        // var_dump($param); die;
+        $this->perPage = $param['limit'];
         
         $totalRec = $this->iklan_model->total_rows($q, $param);
         $order = 'ASC';

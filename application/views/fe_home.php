@@ -8,8 +8,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <link href="css/custom.css" rel="stylesheet">
-  <link href="css/responsive-style.css" rel="stylesheet">  
-  <link href="css/weather-icons.min.css" rel="stylesheet">
+  <link href="css/responsive-style.css" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
   <link href="css/lightbox.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/loaders.css"/>
@@ -77,10 +76,9 @@
             <div class="form-group">
               <label>Tampilkan :</label>
               <select class="form-control filter" name="limit" id="limit">
-                <option value="20">20</option>
+                <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
-                <option value="0">Show All</option>
               </select>
             </div>
             <div class="form-group">
@@ -229,6 +227,7 @@
   <!-- Placed at the end of the document so the pages load faster --> 
 
   <script src="js/jquery.min.js"></script> 
+  <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
   <script src="js/bootstrap.min.js"></script> 
   <script src="js/core.js"></script> 
   <script>

@@ -17,7 +17,7 @@ foreach ($iklan_data as $row)
     <?php
 }
 ?>
-    <div class="col-md-3">
+  <!--   <div class="col-md-3">
       <div class="iklan-container">
         <div class="iklan-title with-border with-bg-black"><h5>JUDUL</h5></div>
         <div class="iklan-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -56,7 +56,7 @@ foreach ($iklan_data as $row)
           <p class="pull-right">#878471</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <div class="col-md-10 offset-md-1">

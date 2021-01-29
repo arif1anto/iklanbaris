@@ -9,8 +9,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <link href="css/custom.css" rel="stylesheet">
-  <link href="css/responsive-style.css" rel="stylesheet">  
-  <link href="css/weather-icons.min.css" rel="stylesheet">
+  <link href="css/responsive-style.css" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
   <link href="css/lightbox.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/loaders.css"/>
@@ -97,7 +96,6 @@
                     <th>No</th>
                     <th>Kode Iklan</th>
                     <th>Judul</th>
-                    <th>Isi Iklan</th>
                     <th>Email User</th>
                     <th>No. WA</th>
                     <th>Situs</th>
@@ -170,6 +168,14 @@
             <form>
               <div class="row">
                 <div class="col-sm-8 wrapper" style="max-height: 400px; overflow-y: auto;">
+                  <div class="form-group">
+                    <label for="hari_tayang">Jumlah Hari Penayangan Iklan: </label>
+                    <div class="input-group">
+                      <input type="number" min="1" value="1" class="form-control" id="hari_tayang" name="hari_tayang" placeholder="">
+                      <span class="input-group-addon">Hari</span>
+                    </div>
+                    <p class="help-block">Iklan akan ditayangkan setelah pembayaran terkonfirmasi</p>
+                  </div>
                   <h4>Pilih Tema</h4>
                   <div class="row">
                     <?php foreach ($tema_data as $row): ?>
@@ -198,26 +204,44 @@
                     <tr>
                       <td>#1</td>
                       <td><strong id="rb_huruf">0</strong> huruf</td>
-                      <td><strong id="rb_hasat">150</strong></td>
-                      <td><strong id="rb_htotal">0</strong></td>
+                      <td class="text-right"><strong id="rb_hasat">150</strong></td>
+                      <td class="text-right"><strong id="rb_htotal">0</strong></td>
                     </tr>
                     <tr>
                       <td>#2</td>
                       <td id="rb_nmtema">Tema Default</td>
-                      <td id="rb_htema"><strong>0</strong></td>
-                      <td id="rb_httotal"><strong>0</strong></td>
+                      <td class="text-right" id="rb_htema"><strong>0</strong></td>
+                      <td class="text-right" id="rb_httotal"><strong>0</strong></td>
                     </tr>
                     <tr style="border-top:1px solid #000">
-                      <td colspan="3">Total Harus Dibayar : </td>
-                      <td id="rb_total"><strong>0</strong></td>
+                      <td class="text-right" colspan="3" style="font-size: 18px"><strong>Total : </strong></td>
+                      <td class="text-right" id="rb_total" style="font-size: 24px"><strong>0</strong></td>
                     </tr>
                   </table>
+
+                  <div class="form-group">
+                    <label for="situs">Metode Pembayaran</label>
+                    <select class="form-control" name="metode_bayar" id="metode_bayar">
+                      <option value="otomatis">Otomatis</option>
+                      <option value="manual">Cek Manual</option>
+                    </select>
+                  </div>
+                    <div class="list-group">
+                      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">List group item heading</h5>
+                          <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small>Donec id elit non mi porta.</small>
+                      </a>
+                    </div>
                 </div>
               </div>
-
             </form>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="btnprev">Kembali</button>
             <button type="button" class="btn btn-primary" id="btnbyr">Bayar</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
@@ -230,6 +254,7 @@
   <!-- Placed at the end of the document so the pages load faster --> 
 
   <script src="js/jquery.min.js"></script> 
+  <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
   <script src="js/bootstrap.min.js"></script> 
   <script type="text/javascript"
   src="https://app.sandbox.midtrans.com/snap/snap.js"
@@ -275,7 +300,12 @@
       $('#mbayar').modal('show')
     })
 
-    $('#btnbyr').click(function (event) {
+    $('#btnprev').click(function () {
+      $('#mbayar').modal('hide')
+      $('#mpasang').modal('show')
+    })
+
+    function bayar_otomatis(event) {
       event.preventDefault();
       var fd = new FormData();    
       fd.append( 'total', $('#rb_total').text().replace(/[.]/g, ""));
@@ -304,8 +334,6 @@
         function changeResult(type,data){
           $("#result-type").val(type);
           $("#result-data").val(JSON.stringify(data));
-          //resultType.innerHTML = type;
-          //resultData.innerHTML = JSON.stringify(data);
         }
 
         snap.pay(data, {
@@ -329,7 +357,40 @@
         });
       }
     });
-    });
+    }
+
+    $('#btnbyr').click(function (event) {
+      if ($('#metode_bayar').val().trim()=='otomatis') {
+        bayar_otomatis(event)
+      } else {
+        simpan(event)
+      }
+    })
+
+    function simpan(event) {
+      inp = $('.modal').find('input,textarea,select');
+      var post = {};
+      for (var i = 0; i < inp.length; i++) {
+        if ($(inp[i]).attr("type")=="checkbox") {
+          post[$(inp[i]).attr('name')] = ($(inp[i]).is(":checked") ? $(inp[i]).val() : "");
+        } else {
+          post[$(inp[i]).attr('name')] = $(inp[i]).val();
+        }
+      }
+      $.ajax({
+        url: '/pasang_iklan/simpan',
+        type: 'POST',
+        dataType: 'json',
+        data: post,
+      })
+      .done(function(data) {
+        console.log("success");
+      })
+      .fail(function(e) {
+        console.log(e);
+      });
+      
+    }
   </script>
 
 </body>

@@ -75,6 +75,16 @@ class Pasang_iklan extends CI_Controller {
         $this->load->view('fe_pasangiklan_ajax', $data, FALSE);
     }
 
+    function simpan()
+    {
+        if (!$this->input->is_ajax_request()) {
+            exit('No direct script allowed');
+        }
+        // $data = [
+        //     '' => 
+        // ];
+    }
+
 }
 
 ?>

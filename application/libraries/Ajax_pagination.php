@@ -29,7 +29,7 @@ class Ajax_pagination{
     var $last_tag_open      = '<li class="page-item">';
     var $last_tag_close     = '</li>';
     var $first_url          = ''; // Alternative URL for the First Page.
-    var $cur_tag_open       = '<li class="page-item active"><a>';
+    var $cur_tag_open       = '<li class="page-item active"><a class="page-link" href="#">';
     var $cur_tag_close      = '</a></li>';
     var $next_tag_open      = '<li class="page-item">';
     var $next_tag_close     = '</li>';
@@ -274,7 +274,7 @@ class Ajax_pagination{
 
         // Add the wrapper HTML if exists
         if ($this->show_total) {
-            $this->full_tag_close = "<li class='active'><a>Total Record: ".$this->total_rows."</a></li>".$this->full_tag_close; 
+            $this->full_tag_close = "<li class='page-item active'><a class='page-link' href='javascript:void(0);'>Total Record: ".$this->total_rows."</a></li>".$this->full_tag_close; 
         } 
         $output = $this->full_tag_open.$output.$this->full_tag_close;
 
@@ -285,7 +285,7 @@ class Ajax_pagination{
 
     function getAJAXlink($count, $text) {
         $pageCount = $count?$count:0;
-        return '<a href="javascript:void(0);"' . $this->anchor_class . ' onclick="'.$this->link_func.'('.$pageCount.')">'. $text .'</a>';
+        return '<a class="page-link" href="javascript:void(0);"' . $this->anchor_class . ' onclick="'.$this->link_func.'('.$pageCount.')">'. $text .'</a>';
     }
 }
 // END Pagination Class

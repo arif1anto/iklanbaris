@@ -35,3 +35,5 @@
       </div>
     </div>
   </div>
+
+  <script src="<?= base_url() ?>assets/global/plugins/visitor/ovc/counter.js"></script>
