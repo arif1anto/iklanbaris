@@ -148,6 +148,12 @@
                         <span class="text"> Iklan</span>
                       </a>
                     </li>
+                    <li class="submenu">
+                      <a href="<?php echo site_url() ?>admin/chat">
+                        <span class="icon"><i class="fa fa-file-o"></i></span>
+                        <span class="text"> Chat</span>
+                      </a>
+                    </li>
 
                 </ul>
                 <div class="sidebar-footer hidden-xs hidden-sm hidden-md">

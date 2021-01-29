@@ -299,5 +299,6 @@ $('#btniklan').click(function() {
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script> -->
   <!-- <script src="js/lightbox-plus-jquery.min.js"></script>  -->
 
+<?php $this->load->view('fe_chat.php'); ?>
 </body>
 </html>
