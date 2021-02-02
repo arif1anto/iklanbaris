@@ -80,9 +80,20 @@ class Pasang_iklan extends CI_Controller {
         if (!$this->input->is_ajax_request()) {
             exit('No direct script allowed');
         }
-        // $data = [
-        //     '' => 
-        // ];
+        $data = [
+            'ads_id'
+            'ads_title' => $this->input->post('judul'),
+            'ads_konten'=> $this->input->post('isi_iklan'),
+            'ads_user_email'=> $this->input->post('email'),
+            'ads_wa'=> $this->input->post('wa'),
+            'ads_situs'=> $this->input->post('situs'),
+            'ads_status'=> $this->input->post('status'),
+            'ads_draft'=> $this->input->post('draft'),
+            'ads_lama'=> $this->input->post('hari_tayang'),
+            'ads_tgl_aju'=> date('Y/m/d h:i:s'),
+            'ads_tgl_byr'=> $this->input->post('byr'),
+            'ads_style'=> $this->input->post('pilih_tema')
+        ];
     }
 
 }
