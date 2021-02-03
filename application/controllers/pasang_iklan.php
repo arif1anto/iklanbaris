@@ -75,13 +75,13 @@ class Pasang_iklan extends CI_Controller {
         $this->load->view('fe_pasangiklan_ajax', $data, FALSE);
     }
 
-    function simpan()
+    public function simpan()
     {
         if (!$this->input->is_ajax_request()) {
             exit('No direct script allowed');
         }
         $data = [
-            'ads_id'
+            'ads_id'    => $this->iklan_model->nourut(),
             'ads_title' => $this->input->post('judul'),
             'ads_konten'=> $this->input->post('isi_iklan'),
             'ads_user_email'=> $this->input->post('email'),
@@ -94,6 +94,22 @@ class Pasang_iklan extends CI_Controller {
             'ads_tgl_byr'=> $this->input->post('byr'),
             'ads_style'=> $this->input->post('pilih_tema')
         ];
+
+        $res = $this->input->post('result');
+        var_dump($res); die;
+
+        $cek = $this->iklan_model->insert($data);
+        if ($cek) {
+            echo json_encode([
+                'status' => TRUE,
+                'pesan' => 'Iklan Anda Berhasil Disimpan',
+            ]);
+        } else {
+            echo json_encode([
+                'status' => FALSE,
+                'pesan' => 'Iklan Anda Gagal Disimpan',
+            ]);
+        }
     }
 
 }

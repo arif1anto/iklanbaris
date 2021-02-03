@@ -337,22 +337,21 @@
         }
 
         snap.pay(data, {
-
           onSuccess: function(result){
             changeResult('success', result);
             console.log(result.status_message);
             console.log(result);
-            $("#payment-form").submit();
+            simpan(result);
           },
           onPending: function(result){
             changeResult('pending', result);
             console.log(result.status_message);
-            $("#payment-form").submit();
+            simpan(result);
           },
           onError: function(result){
             changeResult('error', result);
             console.log(result.status_message);
-            $("#payment-form").submit();
+            simpan(result);
           }
         });
       }
@@ -377,14 +376,20 @@
           post[$(inp[i]).attr('name')] = $(inp[i]).val();
         }
       }
+      post['result'] = event;
       $.ajax({
-        url: '/pasang_iklan/simpan',
+        url: 'pasang_iklan/simpan',
         type: 'POST',
         dataType: 'json',
         data: post,
       })
       .done(function(data) {
-        console.log("success");
+        alert(data);
+        console.log('data: ')
+        console.log(data)
+        console.log('event: ')
+        console.log(event)
+        $('#mbayar').modal('hide')
       })
       .fail(function(e) {
         console.log(e);
