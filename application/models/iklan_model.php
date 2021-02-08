@@ -66,11 +66,11 @@ class iklan_model extends CI_Model
     function nourut()
     {
         $pre = getconfig("pre");
-        $pre = ($pre!=""?$pre:"yk");
-        $no = $this->db->query("select MAX(RIGHT(ads_id,3)) as ads_id from triklan limit 1");
+        $pre = ($pre!=""?$pre:"AD");
+        $no = $this->db->query("select MAX(RIGHT(ads_id,7)) as ads_id from triklan limit 1");
         $autoId = (int) $no->row()->ads_id;
         $autoId++;
-        $NewID = $pre."".sprintf("%03s",$autoId);
+        $NewID = $pre."".sprintf("%07s",$autoId);
         return $NewID;
     }
 

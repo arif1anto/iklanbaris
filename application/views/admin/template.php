@@ -140,6 +140,12 @@
                         <li class="submenu">
                           <a href="<?php echo site_url() ?>admin/subkategori"> Sub Kategori</a>
                         </li>
+                        <li class="submenu">
+                          <a href="<?php echo site_url() ?>admin/wilayah"> Wilayah</a>
+                        </li>
+                        <li class="submenu">
+                          <a href="<?php echo site_url() ?>admin/bank"> Rekening Bank</a>
+                        </li>
                       </ul>
                     </li>
                     <li class="submenu">

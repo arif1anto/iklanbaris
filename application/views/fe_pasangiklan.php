@@ -114,8 +114,8 @@
     <?= $this->load->view('fe_footer.php') ?>
 
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="mpasang">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" tabindex="-1" role="dialog" id="mselesai">
+      <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
@@ -124,32 +124,26 @@
             <h5 class="modal-title">Pasang Iklan Saya</h5>
           </div>
           <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="judul">Judul Iklan</label>
-                <input type="text" class="form-control" id="judul" name="judul" maxlength="25" placeholder="Judul Iklan">
+            <h3 class="text-center">Pesanan Pemasangan Iklan Anda Berhasil</h3>
+            <div class="msg_otomatis">
+              <p>Iklan anda akan tampil sampai <strong id="hari_s">1</strong> Hari kedapan</p>
+            </div>
+            <div id="msg_manual" style="display: none;">
+              <p>Silahkan transfer ke salah satu rekening di bawah ini, dan lakukan pembayaran agar iklan anda aktif.</p>
+              <div class="list-group">
+                <?php foreach ($data_bank as $row): ?>
+                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1"><?= $row->bank_nama ?></h5>
+                    </div>
+                    <p class="mb-1"><?= $row->bank_norek." a.n ".$row->bank_an ?></p>
+                  </a>
+                <?php endforeach ?>
               </div>
-              <div class="form-group">
-                <label for="isi_iklan">Isi Iklan</label>
-                <textarea class="form-control" id="isi_iklan" name="isi_iklan" rows="3"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
-              </div>
-              <div class="form-group">
-                <label for="wa">No. HP / Wa</label>
-                <input type="text" class="form-control" id="wa" name="wa" placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="situs">Situs</label>
-                <input type="text" class="form-control" id="situs" name="situs" placeholder="">
-              </div>
-            </form>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btnnext">Next</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
           </div>
         </div>
       </div>
@@ -168,6 +162,26 @@
             <form>
               <div class="row">
                 <div class="col-sm-8 wrapper" style="max-height: 400px; overflow-y: auto;">
+                  <div class="form-group">
+                    <label for="hari_tayang">Kategori: </label>
+                    <div class="input-group">
+                      <select class="form-control" id="ads_ktg" name="ads_ktg">
+                        <?php foreach ($data_ktg as $row): ?>
+                          <option value="<?= $row->ktg_id ?>"><?= $row->ktg_name ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="hari_tayang">Wilayah: </label>
+                    <div class="input-group">
+                      <select class="form-control" id="ads_wil" name="ads_wil">
+                        <?php foreach ($data_wil as $row): ?>
+                          <option value="<?= $row->wil_id ?>"><?= $row->wil_name ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+                  </div>
                   <div class="form-group">
                     <label for="hari_tayang">Jumlah Hari Penayangan Iklan: </label>
                     <div class="input-group">
@@ -214,28 +228,34 @@
                       <td class="text-right" id="rb_httotal"><strong>0</strong></td>
                     </tr>
                     <tr style="border-top:1px solid #000">
-                      <td class="text-right" colspan="3" style="font-size: 18px"><strong>Total : </strong></td>
-                      <td class="text-right" id="rb_total" style="font-size: 24px"><strong>0</strong></td>
+                      <td class="text-right" colspan="3" style="font-size: 16px"><strong>Sub Total : </strong></td>
+                      <td class="text-right" id="rb_total" style="font-size: 20px"><strong>0</strong> / Hari</td>
+                    </tr>
+                    <tr style="border-top:1px solid #000">
+                      <td id="rb_nmtema" colspan="2">X <strong id="hari">1</strong> Hari Penayangan </td>
+                      <td class="text-right" style="font-size: 16px"><strong>Total : </strong></td>
+                      <td class="text-right" id="rb_gtotal" style="font-size: 20px"><strong>0</strong> / Hari</td>
                     </tr>
                   </table>
 
                   <div class="form-group">
                     <label for="situs">Metode Pembayaran</label>
                     <select class="form-control" name="metode_bayar" id="metode_bayar">
-                      <option value="otomatis">Otomatis</option>
-                      <option value="manual">Cek Manual</option>
+                      <option value="Otomatis">Otomatis</option>
+                      <option value="Manual">Cek Manual</option>
+                      <option value="Point">Point</option>
                     </select>
                   </div>
-                    <div class="list-group">
+                  <div class="list-group" id="list_bank" style="display: none">
+                    <?php foreach ($data_bank as $row): ?>
                       <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                          <small>3 days ago</small>
+                          <h5 class="mb-1"><?= $row->bank_nama ?></h5>
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
+                        <p class="mb-1"><?= $row->bank_norek." a.n ".$row->bank_an ?></p>
                       </a>
-                    </div>
+                    <?php endforeach ?>
+                  </div>
                 </div>
               </div>
             </form>
@@ -243,6 +263,47 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-success" id="btnprev">Kembali</button>
             <button type="button" class="btn btn-primary" id="btnbyr">Bayar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="mpasang">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="modal-title">Pasang Iklan Saya</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="judul">Judul Iklan</label>
+                <input type="text" class="form-control" id="judul" name="judul" maxlength="25" placeholder="Judul Iklan">
+              </div>
+              <div class="form-group">
+                <label for="isi_iklan">Isi Iklan</label>
+                <textarea class="form-control" id="isi_iklan" name="isi_iklan" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+              </div>
+              <div class="form-group">
+                <label for="wa">No. HP / Wa</label>
+                <input type="text" class="form-control" id="wa" name="wa" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="situs">Situs</label>
+                <input type="text" class="form-control" id="situs" name="situs" placeholder="">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btnnext">Next</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </div>
@@ -277,6 +338,24 @@
 
       total = (hsat*jmlhrf)+hrg_tema;
       $('#rb_total').text(rp(total))
+      $('#hari').text($('#hari_tayang').val());
+      $('#rb_gtotal').text(rp(total*$('#hari_tayang').val()));
+    })
+
+    $('#metode_bayar').change(function() {
+      if ($(this).val().trim()=="Manual") {
+        $('#list_bank').show();
+        $('#btnbyr').text('Simpan')
+      } else {
+        $('#list_bank').hide();
+        $('#btnbyr').text('Bayar')
+      }
+    })
+
+    $('#hari_tayang').change(function() {
+      $('#hari').text($(this).val());
+      total = $('#rb_total').text().replace(/[.]/g, "");
+      $('#rb_gtotal').text(rp(total*$(this).val()));
     })
 
     $('#btnnext').click(function() {
@@ -296,6 +375,7 @@
 
       total = (hsat*jmlhrf)+hrg_tema;
       $('#rb_total').text(rp(total))
+      $('#rb_gtotal').text(rp(total))
 
       $('#mbayar').modal('show')
     })
@@ -308,10 +388,11 @@
     function bayar_otomatis(event) {
       event.preventDefault();
       var fd = new FormData();    
-      fd.append( 'total', $('#rb_total').text().replace(/[.]/g, ""));
+      fd.append( 'total', $('#rb_gtotal').text().replace(/[.]/g, ""));
       fd.append( 'qty_huruf', $('#rb_huruf').text().replace(/[.]/g, ""));
       fd.append( 'hrg_huruf', $('#rb_hasat').text().replace(/[.]/g, ""));
       fd.append( 'hrg_tema', $('#rb_htema').text().replace(/[.]/g, ""));
+      fd.append( 'hari_tayang', $('#hari_tayang').val().replace(/[.]/g, ""));
       fd.append( 'nama_tema', $('#rb_nmtema').text());
       fd.append( 'email', $('#email').val());
       fd.append( 'wa', $('#wa').val());
@@ -377,6 +458,7 @@
         }
       }
       post['result'] = event;
+      post['total'] = $('#rb_gtotal').text();
       $.ajax({
         url: 'pasang_iklan/simpan',
         type: 'POST',
@@ -384,12 +466,19 @@
         data: post,
       })
       .done(function(data) {
-        alert(data);
         console.log('data: ')
         console.log(data)
         console.log('event: ')
         console.log(event)
+        if (data.draft=="Y") {
+          $('#mselesai #msg_manual').show();
+          $('#mselesai #msg_otomatis').hide();
+        } else {
+          $('#mselesai #msg_manual').hide();
+          $('#mselesai #msg_otomatis').show();
+        }
         $('#mbayar').modal('hide')
+        $('#mselesai').modal('show')
       })
       .fail(function(e) {
         console.log(e);

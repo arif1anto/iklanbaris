@@ -16,13 +16,22 @@ class Pasang_iklan extends CI_Controller {
         $this->ajax_pagination->initialize($config);
 
         $tema_data = $this->db->query('select * from msads_style')->result();
+        $data_ktg = $this->db->query("SELECT CONCAT(ktg_id,'-') ktg_id, ktg_name FROM mskategori 
+UNION ALL
+select CONCAT(a.ktg_id,'-',b.subktg_id), CONCAT(a.ktg_name,' - ',b.subktg_name) from mskategori a
+inner join mssubkategori b ON a.ktg_id=b.ktg_id")->result();
+        $data_wil = $this->db->query('select * from mswilayah')->result();
+        $data_bank = $this->db->query('select * from msbank')->result();
         $data = array(
             'iklan_data' => NULL,
             'q'         => NULL,
             'pagination'=> $this->ajax_pagination->create_script(),
             'total_rows'=> NULL,
             'start'     => NULL,
-            'tema_data' => $tema_data
+            'tema_data' => $tema_data,
+            'data_ktg' => $data_ktg,
+            'data_wil' => $data_wil,
+            'data_bank' => $data_bank,
         );
 
         $this->load->view('fe_pasangiklan', $data);
@@ -80,28 +89,47 @@ class Pasang_iklan extends CI_Controller {
         if (!$this->input->is_ajax_request()) {
             exit('No direct script allowed');
         }
+        $ktg = $this->input->post('ktg_id');
+        $ktg = explode($ktg,"-");
+        $draft = "Y";
+        $result = $this->input->post('result');
+        if ($result==null || $result=="") {
+            $draft = "Y";
+        }
         $data = [
-            'ads_id'    => $this->iklan_model->nourut(),
-            'ads_title' => $this->input->post('judul'),
-            'ads_konten'=> $this->input->post('isi_iklan'),
-            'ads_user_email'=> $this->input->post('email'),
-            'ads_wa'=> $this->input->post('wa'),
-            'ads_situs'=> $this->input->post('situs'),
-            'ads_status'=> $this->input->post('status'),
-            'ads_draft'=> $this->input->post('draft'),
-            'ads_lama'=> $this->input->post('hari_tayang'),
-            'ads_tgl_aju'=> date('Y/m/d h:i:s'),
-            'ads_tgl_byr'=> $this->input->post('byr'),
-            'ads_style'=> $this->input->post('pilih_tema')
+            'ads_id'         => $this->iklan_model->nourut(),
+            'ads_title'      => $this->input->post('judul'),
+            'ads_konten'     => $this->input->post('isi_iklan'),
+            'ads_user_email' => $this->input->post('email'),
+            'ads_wa'         => $this->input->post('wa'),
+            'ads_situs'      => $this->input->post('situs'),
+            'ads_status'     => $this->input->post('status'),
+            'ads_draft'      => $draft,
+            'ads_lama'       => $this->input->post('hari_tayang'),
+            'ads_tgl_aju'    => date('Y/m/d h:i:s'),
+            'ads_tgl_byr'    => $this->input->post('byr'),
+            'ads_style'      => $this->input->post('pilih_tema'),
+            'ads_ktg'        => $ktg[0],
+            'ads_subktg'     => $ktg[1],
+            'ads_wil'        => $this->input->post('wil_id'),
+            'ads_byrtipe'    => $this->input->post('metode_bayar'),
+            'ads_nominal'    => convert_rp($this->input->post('total')),
+            'ads_midtrans'   => null,
+            'ads_byrnama'    => null,
+            'ads_byrtgltrf'  => null,
+            'ads_byrrek'     => null,
+            'ads_byrbank'    => null,
+            'ads_buktitrf'   => null,
+            'ads_byrkonfirm' => "N",
         ];
 
-        $res = $this->input->post('result');
-        var_dump($res); die;
+        var_dump($result); die;
 
         $cek = $this->iklan_model->insert($data);
         if ($cek) {
             echo json_encode([
                 'status' => TRUE,
+                'draft'     => $draft,
                 'pesan' => 'Iklan Anda Berhasil Disimpan',
             ]);
         } else {
