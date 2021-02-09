@@ -8,6 +8,8 @@
 				<th>Email User</th>
 				<th>No. WA</th>
 				<th>Situs</th>
+				<th>Wilayah</th>
+				<th>Kategori</th>
 				<th>Status</th>
 				<th>Draft</th>
 			</tr>

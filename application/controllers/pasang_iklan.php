@@ -22,6 +22,7 @@ select CONCAT(a.ktg_id,'-',b.subktg_id), CONCAT(a.ktg_name,' - ',b.subktg_name) 
 inner join mssubkategori b ON a.ktg_id=b.ktg_id")->result();
         $data_wil = $this->db->query('select * from mswilayah')->result();
         $data_bank = $this->db->query('select * from msbank')->result();
+        $data_point = $this->db->query('select * from trpoint')->result();
         $data = array(
             'iklan_data' => NULL,
             'q'         => NULL,
@@ -32,6 +33,7 @@ inner join mssubkategori b ON a.ktg_id=b.ktg_id")->result();
             'data_ktg' => $data_ktg,
             'data_wil' => $data_wil,
             'data_bank' => $data_bank,
+            'data_point' => $data_point,
         );
 
         $this->load->view('fe_pasangiklan', $data);
@@ -89,8 +91,8 @@ inner join mssubkategori b ON a.ktg_id=b.ktg_id")->result();
         if (!$this->input->is_ajax_request()) {
             exit('No direct script allowed');
         }
-        $ktg = $this->input->post('ktg_id');
-        $ktg = explode($ktg,"-");
+        $ktg = $this->input->post('ads_ktg');
+        $ktg = explode("-",$ktg);
         $draft = "Y";
         $result = $this->input->post('result');
         if ($result==null || $result=="") {

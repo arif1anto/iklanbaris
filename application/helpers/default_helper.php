@@ -42,6 +42,13 @@ function cek_akses($akses){
 	return ($query->num_rows()>0);
 }
 
+function get_total_point(){
+	$ci = & get_instance();
+	$user = $ci->session->userdata("user_email");
+	$query = $ci->db->query("select ifnull(user_point,0) user_point from msuser where user_email='".$user."'")->row();
+	return (isset($query->user_point)?$query->user_point:0);
+}
+
 //replace first karakter only
 function str_replace_first($from, $to, $subject)
 {
