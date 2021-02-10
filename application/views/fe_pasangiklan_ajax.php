@@ -11,7 +11,7 @@
 				<th>Wilayah</th>
 				<th>Kategori</th>
 				<th>Status</th>
-				<th>Draft</th>
+				<th class="text-center">Aksi</th>
 			</tr>
 		</thead>
 		<tbody><?php $start=0;
@@ -25,8 +25,15 @@
 				<td><?php echo $row->ads_user_email ?></td>
 				<td><?php echo $row->ads_wa ?></td>
 				<td><?php echo $row->ads_situs ?></td>
-				<td class="text-success"><?php echo "Aktif" ?></td>
-				<td><?php echo style_yn($row->ads_draft) ?></td>
+				<td><?php echo $row->wil_name ?></td>
+				<td><?php echo $row->ktg_name ?></td>
+				<td class="text-success"><?= $row->ads_status ?></td>
+				<td class="text-center" nowrap>
+					<button type="button" class="btn btn-sm btn-success" title="Konfirmasi Pembayaran"><i class="fa fa-money fa-fw"></i></button>
+					<button type="button" class="btn btn-sm btn-success" title="Perpanjang Penayangan"><i class="fa fa-eye fa-fw"></i></button>
+					<button type="button" class="btn btn-sm btn-warning" title="Edit"><i class="fa fa-pencil-square-o fa-fw"></i></button>
+					<button type="button" class="btn btn-sm btn-danger" title="Hapus"><i class="fa fa-trash-o fa-fw"></i></button>
+				</td>
 			</tr>
 			<?php
 		}

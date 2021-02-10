@@ -656,11 +656,11 @@
       if ($('#metode_bayar').val().trim()=='otomatis') {
         bayar_otomatis(event)
       } else {
-        simpan(event)
+        simpan()
       }
     })
 
-    function simpan_p(event) {
+    function simpan_p(event = null) {
       inp = $('.modal').find('input,textarea,select');
       var post = {};
       for (var i = 0; i < inp.length; i++) {
@@ -714,10 +714,10 @@
       $.ajax({
         url: 'pasang_iklan/simpan',
         type: 'POST',
-        dataType: 'json',
         data: post,
       })
       .done(function(data) {
+        data = JSON.parse(data);
         console.log('data: ')
         console.log(data)
         console.log('event: ')
@@ -732,8 +732,8 @@
         $('#mbayar').modal('hide')
         $('#mselesai').modal('show')
       })
-      .fail(function(e) {
-        console.log(e);
+      .fail(function(e,j) {
+        console.log(j);
       });
       
     }

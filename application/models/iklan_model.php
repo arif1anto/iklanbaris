@@ -29,9 +29,12 @@ class iklan_model extends CI_Model
     }
 
     function get_limit_data($limit, $start = 0, $key = NULL, $param=NULL, $order = "DESC") {
-        $q = $this->db->select('*')
+        $q = $this->db->select('b.*, a.*, c.wil_name, CONCAT(d.ktg_name,IF(e.subktg_name is null,""," - "),e.subktg_name) ktg_name')
         ->from('triklan a')
         ->join('msads_style b','a.ads_style=b.style_id','left')
+        ->join('mswilayah c','a.ads_wil=c.wil_id','left')
+        ->join('mskategori d','a.ads_ktg=d.ktg_id','left')
+        ->join('mssubkategori e','a.ads_subktg=e.subktg_id','left')
         ->limit($limit, $start);
         if ($param['kolom']!="") {
             $q = $q->order_by($param['kolom'] ,$order);

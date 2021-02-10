@@ -109,7 +109,7 @@ inner join mssubkategori b ON a.ktg_id=b.ktg_id")->result();
             'ads_draft'      => $draft,
             'ads_lama'       => $this->input->post('hari_tayang'),
             'ads_tgl_aju'    => date('Y/m/d h:i:s'),
-            'ads_tgl_byr'    => $this->input->post('byr'),
+            'ads_tgl_byr'    => null,
             'ads_style'      => $this->input->post('pilih_tema'),
             'ads_ktg'        => $ktg[0],
             'ads_subktg'     => $ktg[1],
@@ -125,7 +125,6 @@ inner join mssubkategori b ON a.ktg_id=b.ktg_id")->result();
             'ads_byrkonfirm' => "N",
         ];
 
-        var_dump($result); die;
 
         $cek = $this->iklan_model->insert($data);
         if ($cek) {
