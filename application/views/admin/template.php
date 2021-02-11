@@ -124,6 +124,13 @@
                         <span class="selected"></span>
                       </a>
                     </li>
+                    <li>
+                      <a href="<?php echo site_url() ?>admin/user_admin">
+                        <span class="icon"><i class="fa fa-user"></i></span>
+                        <span class="text">Data Admin</span>
+                        <span class="selected"></span>
+                      </a>
+                    </li>
                     <li class="submenu">
                       <a href="javascript:void(0);">
                         <span class="icon"><i class="fa fa-file-o"></i></span>
@@ -158,6 +165,12 @@
                       <a href="<?php echo site_url() ?>admin/chat">
                         <span class="icon"><i class="fa fa-file-o"></i></span>
                         <span class="text"> Chat</span>
+                      </a>
+                    </li>
+                    <li class="submenu">
+                      <a href="<?php echo site_url() ?>admin/setting">
+                        <span class="icon"><i class="fa fa-file-o"></i></span>
+                        <span class="text"> Setting</span>
                       </a>
                     </li>
 

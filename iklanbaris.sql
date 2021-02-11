@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 28/01/2021 16:56:41
+ Date: 11/02/2021 15:36:11
 */
 
 SET NAMES utf8mb4;
@@ -37,6 +37,24 @@ INSERT INTO `msads_style` VALUES (1, 'Default', NULL, 'with-border with-bg-black
 INSERT INTO `msads_style` VALUES (2, 'Special', 'border-red', 'with-border with-bg-red', 5000);
 INSERT INTO `msads_style` VALUES (3, 'Elegant', 'font-color-blue', 'with-border', 4000);
 INSERT INTO `msads_style` VALUES (4, 'Clasic', NULL, 'with-border', 2000);
+
+-- ----------------------------
+-- Table structure for msbank
+-- ----------------------------
+DROP TABLE IF EXISTS `msbank`;
+CREATE TABLE `msbank`  (
+  `bank_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `bank_nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `bank_norek` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `bank_an` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`bank_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of msbank
+-- ----------------------------
+INSERT INTO `msbank` VALUES ('AD0001', 'BRI', '12545412115451', 'Mata Iklan');
+INSERT INTO `msbank` VALUES ('AD0002', 'MANDIRI', '02125454154445', 'Mata Iklan');
 
 -- ----------------------------
 -- Table structure for mskategori
@@ -114,14 +132,15 @@ CREATE TABLE `msuser`  (
   `user_last_login` datetime(0) NULL DEFAULT NULL COMMENT 'Last Login',
   `user_status` enum('Aktif','Suspend') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Aktif' COMMENT 'Status',
   `user_email_verified` tinyint(1) NULL DEFAULT 0 COMMENT 'Email Verified',
+  `user_point` int NULL DEFAULT NULL COMMENT 'Point User',
   PRIMARY KEY (`user_email`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of msuser
 -- ----------------------------
-INSERT INTO `msuser` VALUES ('arifianto.me@gmail.com', 'Arifianto', '-', '123', '08545412544', '2021-01-28 11:39:16', 'Aktif', 1);
-INSERT INTO `msuser` VALUES ('arifianto1.me@gmail.com', 'Arifianto', '-', '12345678', '82136461938', NULL, 'Aktif', 0);
+INSERT INTO `msuser` VALUES ('arifianto.me@gmail.com', 'Arifianto', '-', '123', '08545412544', '2021-02-11 15:31:49', 'Aktif', 1, NULL);
+INSERT INTO `msuser` VALUES ('arifianto1.me@gmail.com', 'Arifianto', '-', '12345678', '82136461938', NULL, 'Aktif', 0, NULL);
 
 -- ----------------------------
 -- Table structure for msuser_admin
@@ -140,6 +159,23 @@ CREATE TABLE `msuser_admin`  (
 -- Records of msuser_admin
 -- ----------------------------
 INSERT INTO `msuser_admin` VALUES ('admin', '123', 'admin@gmail.com', 'Admin', NULL);
+
+-- ----------------------------
+-- Table structure for mswilayah
+-- ----------------------------
+DROP TABLE IF EXISTS `mswilayah`;
+CREATE TABLE `mswilayah`  (
+  `wil_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `wil_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nama Wilayah',
+  PRIMARY KEY (`wil_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mswilayah
+-- ----------------------------
+INSERT INTO `mswilayah` VALUES ('AD001', 'Yogyakarta');
+INSERT INTO `mswilayah` VALUES ('AD002', 'Tangerang');
+INSERT INTO `mswilayah` VALUES ('AD003', 'Jakarta');
 
 -- ----------------------------
 -- Table structure for notif
@@ -177,16 +213,36 @@ CREATE TABLE `triklan`  (
   `ads_situs` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Situs',
   `ads_status` enum('Aktif','Pending','Suspend') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Aktif' COMMENT 'Status',
   `ads_draft` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N' COMMENT 'Draft',
-  `ads_tgl_tayang1` date NULL DEFAULT NULL,
-  `ads_tgl_tayang2` date NULL DEFAULT NULL,
+  `ads_lama` int NULL DEFAULT NULL COMMENT 'Jumlah Hari',
+  `ads_tgl_aju` date NULL DEFAULT NULL COMMENT 'Tanggal Pengajuan',
+  `ads_tgl_byr` date NULL DEFAULT NULL COMMENT 'Tanggal Pembayaran dikonfirmasi (Mulai Tayang)',
   `ads_style` int NULL DEFAULT NULL,
+  `ads_ktg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Kategori',
+  `ads_subktg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Sub Kategori',
+  `ads_wil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Wilayah',
+  `ads_byrtipe` enum('Manual','Otomatis','Point') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ads_nominal` double NULL DEFAULT NULL,
+  `ads_midtrans` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ads_byrnama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ads_byrtgltrf` date NULL DEFAULT NULL,
+  `ads_byrrek` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ads_byrbank` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ads_buktitrf` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ads_byrkonfirm` enum('Y','N') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'N',
   PRIMARY KEY (`ads_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of triklan
 -- ----------------------------
-INSERT INTO `triklan` VALUES ('AD001', 'TEST', 'ajslka lkad akdk k dkakd ayudoaudkl duoaud audoka udoaudoua odu aod', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', '', 'N', NULL, NULL, NULL);
+INSERT INTO `triklan` VALUES ('AD0000001', 'TEST', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', 'Pending', 'N', 1, '2021-02-03', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000002', 'TEST 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', 'Pending', 'N', 1, '2021-02-01', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000003', 'TEST 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', 'Pending', 'N', 1, '2021-02-04', NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000004', 'Test 4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '0821333545544', 'www.ikankoijogja.com', 'Pending', 'Y', 1, '2021-02-10', '0000-00-00', 4, 'AD002', '', '0', 'Manual', 3600, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000005', 'Test 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '0821333545544', 'www.ikankoijogja.com', 'Pending', 'Y', 1, '2021-02-10', '0000-00-00', 4, 'AD002', '', '0', 'Manual', 3600, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000006', 'TEST 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', 'Pending', 'N', 1, '2021-02-04', NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000007', 'TEST 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', 'Pending', 'N', 1, '2021-02-04', NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+INSERT INTO `triklan` VALUES ('AD0000008', 'TEST', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam\r\n', 'arifianto.me@gmail.com', '085444545454', 'www.aaaa.com', 'Pending', 'N', 1, '2021-02-03', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
 
 -- ----------------------------
 -- Table structure for trlog
@@ -198,7 +254,7 @@ CREATE TABLE `trlog`  (
   `LogLsUsr` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `LogKet` varchar(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`LogSeq`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of trlog
@@ -211,5 +267,24 @@ INSERT INTO `trlog` VALUES (5, '2021-01-23 04:34:39', 'yk0001', 'CREATE Iklan No
 INSERT INTO `trlog` VALUES (6, '2021-01-23 04:35:27', 'yk0001', 'EDIT Iklan No. AD001 ');
 INSERT INTO `trlog` VALUES (7, '2021-01-23 04:37:41', 'yk0001', 'EDIT Iklan No. AD001 ');
 INSERT INTO `trlog` VALUES (8, '2021-01-25 04:18:55', '000000', 'EDIT Iklan No. AD001 ');
+INSERT INTO `trlog` VALUES (9, '2021-02-08 04:39:28', '000000', 'CREATE Wilayah No. AD003 ');
+
+-- ----------------------------
+-- Table structure for trpoint
+-- ----------------------------
+DROP TABLE IF EXISTS `trpoint`;
+CREATE TABLE `trpoint`  (
+  `pnt_id` int NOT NULL AUTO_INCREMENT,
+  `pnt_tgl` datetime(0) NOT NULL,
+  `pnt_ket` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pnt_nominal` double NOT NULL,
+  `pnt_user` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pnt_iklan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`pnt_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of trpoint
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -21,7 +21,7 @@
 			<tr data-konten="<?php echo $row->ads_konten ?>">
 				<td width="20px"><?php echo ++$start ?></td>
 				<td><?php echo $row->ads_id ?></td>
-				<td><?php echo $row->ads_title ?></td>
+				<td nowrap><?php echo $row->ads_title ?></td>
 				<td><?php echo $row->ads_user_email ?></td>
 				<td><?php echo $row->ads_wa ?></td>
 				<td><?php echo $row->ads_situs ?></td>
@@ -32,7 +32,7 @@
 					<button type="button" class="btn btn-sm btn-success" title="Konfirmasi Pembayaran"><i class="fa fa-money fa-fw"></i></button>
 					<button type="button" class="btn btn-sm btn-success" title="Perpanjang Penayangan"><i class="fa fa-eye fa-fw"></i></button>
 					<button type="button" class="btn btn-sm btn-warning" title="Edit"><i class="fa fa-pencil-square-o fa-fw"></i></button>
-					<button type="button" class="btn btn-sm btn-danger" title="Hapus"><i class="fa fa-trash-o fa-fw"></i></button>
+					<button type="button" class="btn btn-sm btn-danger" title="Batalkan Penayangan"><i class="fa fa-times fa-fw"></i></button>
 				</td>
 			</tr>
 			<?php

@@ -5,7 +5,7 @@
 foreach ($iklan_data as $row)
 {
     ?>
-    <div class="col-md-3">
+    <div class="col-md-3 iklan">
       <div class="iklan-container <?= $row->container_class ?>">
         <div class="iklan-title <?= $row->title_class ?>"><h5><?= $row->ads_title ?></h5></div>
         <div class="iklan-body"><?= $row->ads_konten ?></div>

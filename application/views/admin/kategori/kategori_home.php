@@ -39,7 +39,7 @@
 </div>
 <div class="col-sm-6">
 <div class="col-sm-6"> 
-<select class="form-control input-sm" name="kolom" id="kolom">
+<select class="form-control input-sm filter" name="kolom" id="kolom">
 		<option value='ktg_id'>Kode Kategori</option>
 		<option value='ktg_name'>Nama Kategori</option></select>
 </div>

@@ -167,8 +167,8 @@ footer .post p span { display:block; color:#8f8f8f; font-size: 12px;}
 .iklan-container{
 	border: 1px solid #aaa;
 	padding: 10px;
-	margin-bottom: 15px;
-	margin-top: 15px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 .iklan-title h5 {
 	font-weight: bold;
@@ -221,4 +221,9 @@ footer .post p span { display:block; color:#8f8f8f; font-size: 12px;}
 
 .text-right{
 	text-align: right;
+}
+
+.iklan {
+  padding-left: 5px; 
+  padding-right: 5px; 
 }

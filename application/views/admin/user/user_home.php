@@ -4,7 +4,6 @@
     <button type="button" id="btn_baru" class="btn btn-primary btn-block" title="Data Baru" onclick="baru()"><i class="fa fa-file fa-2x"></i></button>
     <button type="button" id="btn_edit" class="btn btn-success btn-block" title="Ubah Data" onclick="edit()"><i class="fa fa-pencil fa-2x"></i></button>
     <button type="button" id="btn_hapus" class="btn btn-danger btn-block" title="Hapus Data" onclick="hapus()"><i class="fa fa-trash-o fa-2x"></i></button>
-    <button type="button" id="btn_cetak" class="btn btn-default btn-block" title="Cetak" onclick="cetak()" ><i class="fa fa-print fa-2x"></i></button>
     <button type="button" id="btn_simpan" class="btn btn-primary btn-block" title="Simpan" onclick="simpan()" disabled><i class="fa fa-check fa-2x"></i></button>
     <button type="button" id="btn_batal" class="btn btn-danger btn-block" title="Batal" onclick="batal()" disabled><i class="fa fa-times fa-2x"></i></button>
   </div>
@@ -35,7 +34,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="col-sm-6"> 
-                    <select class="form-control input-sm" name="kolom" id="kolom">
+                    <select class="form-control input-sm filter" name="kolom" id="kolom">
                       <option value='user_email'>Email</option>
                       <option value='user_firstname'>Nama Depan</option>
                       <option value='user_lastname'>Nama Belakang</option>
